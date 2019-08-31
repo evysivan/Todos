@@ -19,6 +19,10 @@ class TodoList extends Component {
 
     return (
       <div>
+        <AddTodoForm
+          addTodo={addTodoAction}
+          checkTitle={this.handleTodoTitleCheck}
+        ></AddTodoForm>
         <ul>
           {todoList.map(todo => {
             return (
@@ -33,10 +37,6 @@ class TodoList extends Component {
             );
           })}
         </ul>
-        <AddTodoForm
-          addTodo={addTodoAction}
-          checkTitle={this.handleTodoTitleCheck}
-        ></AddTodoForm>
       </div>
     );
   }

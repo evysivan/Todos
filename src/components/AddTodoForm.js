@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
+import { InputGroup, Tag, Text } from "@blueprintjs/core";
+import cx from "classnames";
 
 const initialValues = {
   title: "",
@@ -48,13 +50,59 @@ const AddTodoForm = props => {
     >
       {({ errors, touched, isSubmitting, isValid }) => (
         <Form>
-          <Field name="title" placeholder="Enter Title" />
-          {errors.title && touched.title ? <span>{errors.title}</span> : null}
+          <Field name="title">
+            {({ field, form }) => (
+              <InputGroup
+                {...field}
+                type="text"
+                placeholder="Enter Title"
+                rightElement={
+                  <Tag
+                    className={cx(
+                      `bp3-minimal`,
+                      `bp3-intent-${
+                        errors.title && touched.title ? "danger" : "success"
+                      }`
+                    )}
+                    icon={errors.title && touched.title ? "cross" : "circle"}
+                  >
+                    {errors.title && touched.title ? errors.title : null}
+                  </Tag>
+                }
+              />
+            )}
+          </Field>
 
-          <Field name="description" placeholder="Enter Description" />
-          {errors.description && touched.description ? (
-            <span>{errors.description}</span>
-          ) : null}
+          <Field name="description">
+            {({ field, form }) => (
+              <InputGroup
+                {...field}
+                type="text"
+                placeholder="Enter Description"
+                rightElement={
+                  <Tag
+                    className={cx(
+                      `bp3-minimal`,
+                      `bp3-intent-${
+                        errors.description && touched.description
+                          ? "danger"
+                          : "success"
+                      }`
+                    )}
+                    icon={
+                      errors.description && touched.description
+                        ? "cross"
+                        : "circle"
+                    }
+                  >
+                    {errors.description && touched.description
+                      ? errors.description
+                      : null}
+                  </Tag>
+                }
+              />
+            )}
+          </Field>
 
           <button type="submit" disabled={!isValid || isSubmitting}>
             Add
