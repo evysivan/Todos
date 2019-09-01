@@ -1,0 +1,14 @@
+.right-panel {
+  @include flexBox(column, flex-start);
+  width: 60%;
+  height: 100%;
+  background: $bgColor;
+  padding: $paddingNormal;
+  margin-left: $paddingNormal;
+
+  .right-panel-header {
+    @include flexBox(column);
+    align-items: flex-start;
+    width: 100%;
+  }
+}

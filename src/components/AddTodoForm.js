@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { InputGroup, Tag, Text } from "@blueprintjs/core";
+import { InputGroup, Tag } from "@blueprintjs/core";
 import cx from "classnames";
 
 const initialValues = {

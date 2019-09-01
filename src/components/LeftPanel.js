@@ -1,9 +1,16 @@
 import React, { Component } from "react";
+import TodoLists from "./TodoLists";
+import StyledLeftPanelHeader from "./LeftPanelHeader";
 
 class LeftPanel extends Component {
   state = {};
   render() {
-    return <h1>Ok</h1>;
+    return (
+      <div className="left-panel">
+        <StyledLeftPanelHeader />
+        <TodoLists />
+      </div>
+    );
   }
 }
 

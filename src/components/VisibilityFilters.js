@@ -25,8 +25,8 @@ class VisibilityFilters extends Component {
     super(props);
     this.state = {
       prevRef: null,
-      left: "100px",
-      width: "100px"
+      left: "0px",
+      width: "0px"
     };
   }
   componentDidMount() {

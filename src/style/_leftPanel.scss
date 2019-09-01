@@ -1,0 +1,24 @@
+.left-panel {
+  @include flexBox(column, space-between);
+  height: 100%;
+  width: 40%;
+  background: $bgColor;
+
+  .left-panel-header {
+    @include flexBox(row, flex-start);
+    width: 100%;
+    height: 15%;
+    padding: 5px;
+    border-bottom: 1px solid $contourColor;
+
+    h1 {
+      margin-left: 15px;
+    }
+  }
+
+  .lists-list {
+    width: 100%;
+    height: 85%;
+    padding: 5px;
+  }
+}

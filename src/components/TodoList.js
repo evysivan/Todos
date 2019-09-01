@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { addTodoAction } from "../actions/addTodoAction";
-import { ToggleTodo } from "../actions/TodoActions";
+import { ToggleTodo, RemoveTodo, EditTodo } from "../actions/TodoActions";
 import AddTodoForm from "../components/AddTodoForm";
+import Todo from "../components/Todo";
 import { connect } from "react-redux";
-import cx from "classnames";
-// import VisibilityFilters from "./VisibilityFilters";
 import { getTodoList } from "../selectors";
 import * as _ from "lodash";
 
@@ -15,7 +14,13 @@ class TodoList extends Component {
 
   handleTodoTitleCheck = title => !_.some(this.props.todoList, { title });
   render() {
-    const { todoList, ToggleTodo, addTodoAction } = this.props;
+    const {
+      todoList,
+      ToggleTodo,
+      RemoveTodo,
+      addTodoAction,
+      EditTodo
+    } = this.props;
 
     return (
       <div>
@@ -26,14 +31,15 @@ class TodoList extends Component {
         <ul>
           {todoList.map(todo => {
             return (
-              <li
+              <Todo
+                todo={todo}
                 key={todo.id}
-                className={cx("todo", todo.completed ? "completed" : "")}
-                onClick={() => ToggleTodo(todo.id)}
-              >
-                <h1>{todo.title}</h1>
-                <p>{todo.description}</p>
-              </li>
+                onCompleted={id => ToggleTodo(id)}
+                onEdit={(id, editable, newValues) =>
+                  EditTodo(id, editable, newValues)
+                }
+                onRemove={id => RemoveTodo(id)}
+              />
             );
           })}
         </ul>
@@ -49,5 +55,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { addTodoAction, ToggleTodo }
+  { addTodoAction, ToggleTodo, RemoveTodo, EditTodo }
 )(TodoList);
