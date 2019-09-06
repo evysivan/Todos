@@ -1,13 +1,29 @@
 import React, { Component } from "react";
 import cx from "classnames";
 import styled from "styled-components";
+import { Button } from "@blueprintjs/core";
+
+const TodoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border 1px solid lightgray;
+  max-height: 60px;
+`;
 
 const Title = styled.h1`
-  background: ${props => (props.contentEditable ? "white" : "transparent")};
+  background: ${props =>
+    props.contentEditable ? "rgb(226, 226, 226)" : "transparent"};
   border-bottom: 2px solid
-    ${props => (props.contentEditable ? "gray" : "transparent")};
+    ${props => (props.contentEditable ? "rgb(83, 83, 83)" : "transparent")};
 `;
-const Description = styled(Title)``;
+const Description = styled(Title)`
+  margin: 0;
+  align-self: flex-end;
+`;
 
 class Todo extends Component {
   constructor(props) {
@@ -38,10 +54,15 @@ class Todo extends Component {
   render() {
     const { todo, onCompleted, onRemove } = this.props;
     return (
-      <div
+      <TodoWrapper
         id={`todo-${todo.id}`}
         className={cx("todo", todo.completed ? "completed" : "")}
       >
+        <Button
+          minimal
+          icon={todo.completed ? "tick-circle" : "circle"}
+          onClick={() => onCompleted(todo.id)}
+        />
         <Title
           ref={title => (this.TodoTitle = title)}
           contentEditable={todo.editable}
@@ -51,12 +72,16 @@ class Todo extends Component {
         <Description as="p" contentEditable={todo.editable}>
           {todo.description}
         </Description>
-        <button onClick={() => onCompleted(todo.id)}>v</button>
-        <button onClick={() => onRemove(todo.id)}>x</button>
-        <button onClick={() => this.handleEdit(todo.id, todo.editable)}>
-          e
-        </button>
-      </div>
+        <div style={{ flex: 1 }}></div>
+        <Button minimal icon={"delete"} onClick={() => onRemove(todo.id)} />
+        <Button
+          minimal
+          icon={todo.editable || "edit"}
+          onClick={() => this.handleEdit(todo.id, todo.editable)}
+        >
+          {todo.editable ? "Done editting" : ""}
+        </Button>
+      </TodoWrapper>
     );
   }
 }

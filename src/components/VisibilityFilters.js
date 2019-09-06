@@ -8,11 +8,12 @@ import styled from "styled-components";
 
 const StyledButtonGroup = styled(ButtonGroup)`
   position: relative;
+  color: #f1f0f0;
 `;
 
 const UnderlineActive = styled.span`
-  background: blue;
-  height: 5px;
+  background: rgb(196, 196, 196);
+  height: 2px;
   width: ${props => props.width};
   position: absolute;
   bottom: 0;

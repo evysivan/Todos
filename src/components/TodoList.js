@@ -6,7 +6,23 @@ import Todo from "../components/Todo";
 import { connect } from "react-redux";
 import { getTodoList } from "../selectors";
 import * as _ from "lodash";
-import Just from "./Just";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import styled from "styled-components";
+
+const StyledUL = styled.ul`
+  overflow: auto;
+  padding: 0;
+  flex: 1;
+  margin-bottom: 0;
+`;
+
+const TodosPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+`;
 
 class TodoList extends Component {
   handleToggleTodo = id => {
@@ -24,27 +40,34 @@ class TodoList extends Component {
     } = this.props;
 
     return (
-      <div>
+      <TodosPanel>
         <AddTodoForm
           addTodo={addTodoAction}
           checkTitle={this.handleTodoTitleCheck}
         ></AddTodoForm>
-        <ul>
-          {todoList.map(todo => {
-            return (
-              <Todo
-                todo={todo}
-                key={todo.id}
-                onCompleted={id => ToggleTodo(id)}
-                onEdit={(id, editable, newValues) =>
-                  EditTodo(id, editable, newValues)
-                }
-                onRemove={id => RemoveTodo(id)}
-              />
-            );
-          })}
-        </ul>
-      </div>
+        <StyledUL>
+          <ReactCSSTransitionGroup
+            style={{ position: "relative" }}
+            transitionName="todoeffect"
+            transitionEnterTimeout={200}
+            transitionLeaveTimeout={200}
+          >
+            {todoList.map(todo => {
+              return (
+                <Todo
+                  todo={todo}
+                  key={todo.id}
+                  onCompleted={id => ToggleTodo(id)}
+                  onEdit={(id, editable, newValues) =>
+                    EditTodo(id, editable, newValues)
+                  }
+                  onRemove={id => RemoveTodo(id)}
+                />
+              );
+            })}
+          </ReactCSSTransitionGroup>
+        </StyledUL>
+      </TodosPanel>
     );
   }
 }

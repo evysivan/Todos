@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TodoListLink from "./TodoListLink";
 import NewTodoList from "./NewTodoList";
-import Just from "./Just";
 
 class TodoLists extends Component {
   constructor(props) {
@@ -11,8 +10,6 @@ class TodoLists extends Component {
   render() {
     return (
       <div className="lists-list">
-        <Just text="Bla" />
-
         <TodoListLink />
         <TodoListLink />
 
