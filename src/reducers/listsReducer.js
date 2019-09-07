@@ -31,13 +31,7 @@ const listsReducer = handleActions(
 
       return { ...state, lists: newList };
     },
-    // ["REMOVE_LIST"]: (state, action) => {
-    //   const { id: isDelete } = action.payload;
-    //   return {
-    //     ...state,
-    //     lists: state.lists.filter(list => list.id != isDelete)
-    //   };
-    // },
+
     ["REMOVE_LIST"]: (state, action) => {
       const { id: idDelete } = action.payload;
       let current = state.current;
@@ -50,7 +44,7 @@ const listsReducer = handleActions(
         current =
           state.lists[0].id === idDelete
             ? state.lists[1].id
-            : state.lists[index - 1].id;
+            : state.lists[index - 1];
       }
       return {
         ...state,
@@ -70,12 +64,10 @@ const listsReducer = handleActions(
       state,
       action
     ) => {
-      console.log(state);
       const newLists = [...state.lists];
-      newLists[state.current].todoList = todoReducer(
-        newLists[state.current].todoList,
-        action
-      );
+      const index = state.lists.findIndex(list => list.id === state.current);
+
+      newLists[index].todoList = todoReducer(newLists[index].todoList, action);
       return { ...state, lists: newLists };
     },
     ["CHOOSE_TAB"]: (state, action) => ({
