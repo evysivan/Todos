@@ -28,6 +28,11 @@ const TodosPanel = styled.div`
   padding: 10px;
 `;
 
+const StyledP = styled.p`
+  color: gray;
+  text-align: center;
+`;
+
 class TodoList extends Component {
   handleToggleTodo = id => {
     this.props.ToggleTodo(id);
@@ -71,7 +76,7 @@ class TodoList extends Component {
                 );
               })
             ) : (
-              <p>No todos</p>
+              <StyledP>No tasks yet</StyledP>
             )}
           </ReactCSSTransitionGroup>
         </StyledUL>

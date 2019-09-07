@@ -14,6 +14,7 @@ const LinkWrapper = styled.div`
   border 1px solid lightgray;
   height: 50px;
   padding: 5px;
+  transition: all 300ms;
 `;
 
 const Title = styled.h1`
