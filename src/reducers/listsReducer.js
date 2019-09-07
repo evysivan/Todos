@@ -31,11 +31,31 @@ const listsReducer = handleActions(
 
       return { ...state, lists: newList };
     },
+    // ["REMOVE_LIST"]: (state, action) => {
+    //   const { id: isDelete } = action.payload;
+    //   return {
+    //     ...state,
+    //     lists: state.lists.filter(list => list.id != isDelete)
+    //   };
+    // },
     ["REMOVE_LIST"]: (state, action) => {
-      const { id: isDelete } = action.payload;
+      const { id: idDelete } = action.payload;
+      let current = state.current;
+
+      const newList = state.lists.filter(list => list.id !== idDelete);
+      const index = state.lists.findIndex(list => list.id === idDelete);
+
+      if (state.current === idDelete) {
+        console.log(state.lists[0].id === idDelete);
+        current =
+          state.lists[0].id === idDelete
+            ? state.lists[1].id
+            : state.lists[index - 1].id;
+      }
       return {
         ...state,
-        lists: state.lists.filter(list => list.id != isDelete)
+        current,
+        lists: newList
       };
     },
     ["ADD_LIST"]: (state, action) => {

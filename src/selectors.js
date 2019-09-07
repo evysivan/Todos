@@ -1,5 +1,7 @@
 export const getTodoList = (store, visibilityFilter) => {
-  const todoList = store.todos.lists[store.todos.current].todoList;
+  const todoList = store.todos.lists.filter(
+    list => list.id === store.todos.current
+  ).todoList;
 
   switch (visibilityFilter) {
     case "completed":
@@ -13,5 +15,5 @@ export const getTodoList = (store, visibilityFilter) => {
 };
 
 export const getCurrentList = store => {
-  return store.lists[store.current];
+  return store.lists.filter(list => list.id === store.current);
 };

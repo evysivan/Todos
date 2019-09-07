@@ -6,7 +6,9 @@ const RightPanelTitle = ({ title }) => {
 };
 
 function mapStateToProps(state) {
-  const title = state.todos.lists[state.todos.current].title;
+  const title = state.todos.lists.filter(
+    list => list.id === state.todos.current
+  )[0].title;
 
   return { title };
 }
