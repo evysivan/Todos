@@ -1,3 +1,8 @@
+export const addTodoAction = todo => ({
+  type: "ADD_TODO",
+  payload: todo
+});
+
 export const ToggleTodo = id => ({
   type: "TOGGLE_TODO",
   payload: {

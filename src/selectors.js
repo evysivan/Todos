@@ -1,5 +1,5 @@
 export const getTodoList = (store, visibilityFilter) => {
-  const todoList = store.todoList;
+  const todoList = store.todos.lists[store.todos.current].todoList;
 
   switch (visibilityFilter) {
     case "completed":
@@ -10,4 +10,8 @@ export const getTodoList = (store, visibilityFilter) => {
     default:
       return todoList;
   }
+};
+
+export const getCurrentList = store => {
+  return store.lists[store.current];
 };

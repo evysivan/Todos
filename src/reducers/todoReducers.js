@@ -1,4 +1,13 @@
-const initialState = [];
+const initialState = [
+  {
+    id: 0,
+    title: "Shit",
+    description: "Bla",
+    completed: false,
+    editable: false,
+    reminder: ""
+  }
+];
 
 let idInitial = 0;
 

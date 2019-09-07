@@ -1,7 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const RightPanelTitle = () => {
-  return <h1>BLa</h1>;
+const RightPanelTitle = ({ title }) => {
+  return <h1>{title}</h1>;
 };
 
-export default RightPanelTitle;
+function mapStateToProps(state) {
+  const title = state.todos.lists[state.todos.current].title;
+
+  return { title };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(RightPanelTitle);

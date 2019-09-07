@@ -4,7 +4,7 @@ import RightPanelTitle from "./RIghtPanelTitle";
 
 const RightPanelHeader = () => {
   return (
-    <div class="right-panel-header">
+    <div className="right-panel-header">
       <RightPanelTitle></RightPanelTitle>
       <VisibilityFilters></VisibilityFilters>
     </div>

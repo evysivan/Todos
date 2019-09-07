@@ -1,22 +1,81 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import TodoListLink from "./TodoListLink";
 import NewTodoList from "./NewTodoList";
+import { getCurrentList } from "../selectors";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+
+import * as _ from "lodash";
+import {
+  setCurrentTab,
+  editListName,
+  removeList,
+  addList
+} from "../actions/listActions";
+import PropTypes from "prop-types";
 
 class TodoLists extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  handleTodoTitleCheck = title => {
+    console.log(title);
+    console.log(this.props.lists);
+    return !_.some(this.props.lists, { title });
+  };
+
   render() {
+    const {
+      lists,
+      setCurrentTab,
+      editListName,
+      removeList,
+      addList
+    } = this.props;
     return (
       <div className="lists-list">
-        <TodoListLink />
-        <TodoListLink />
+        <ReactCSSTransitionGroup
+          style={{ position: "relative" }}
+          transitionName="todoeffect"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}
+        >
+          {lists.map(list => (
+            <TodoListLink
+              key={list.id}
+              listsLength={lists.length}
+              handleClick={() => setCurrentTab(list.id)}
+              onEdit={(id, editable, newValues) =>
+                editListName(id, editable, newValues)
+              }
+              onRemove={id => removeList(id)}
+              list={list}
+            />
+          ))}
 
-        <NewTodoList />
+          <NewTodoList
+            onAdd={title => addList(title)}
+            checkTitle={this.handleTodoTitleCheck}
+          />
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
 }
 
-export default TodoLists;
+function mapStateToProps(state) {
+  const lists = state.todos.lists;
+
+  return { lists };
+}
+
+TodoLists.propsType = {
+  lists: PropTypes.array,
+  setCurrentTab: PropTypes.func
+};
+
+export default connect(
+  mapStateToProps,
+  { setCurrentTab, editListName, removeList, addList }
+)(TodoLists);

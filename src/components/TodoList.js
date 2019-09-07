@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { addTodoAction } from "../actions/addTodoAction";
-import { ToggleTodo, RemoveTodo, EditTodo } from "../actions/TodoActions";
+import {
+  addTodoAction,
+  ToggleTodo,
+  RemoveTodo,
+  EditTodo
+} from "../actions/TodoActions";
 import AddTodoForm from "../components/AddTodoForm";
 import Todo from "../components/Todo";
 import { connect } from "react-redux";
@@ -52,19 +56,23 @@ class TodoList extends Component {
             transitionEnterTimeout={200}
             transitionLeaveTimeout={200}
           >
-            {todoList.map(todo => {
-              return (
-                <Todo
-                  todo={todo}
-                  key={todo.id}
-                  onCompleted={id => ToggleTodo(id)}
-                  onEdit={(id, editable, newValues) =>
-                    EditTodo(id, editable, newValues)
-                  }
-                  onRemove={id => RemoveTodo(id)}
-                />
-              );
-            })}
+            {todoList && todoList.length > 0 ? (
+              todoList.map(todo => {
+                return (
+                  <Todo
+                    todo={todo}
+                    key={todo.id}
+                    onCompleted={id => ToggleTodo(id)}
+                    onEdit={(id, editable, newValues) =>
+                      EditTodo(id, editable, newValues)
+                    }
+                    onRemove={id => RemoveTodo(id)}
+                  />
+                );
+              })
+            ) : (
+              <p>No todos</p>
+            )}
           </ReactCSSTransitionGroup>
         </StyledUL>
       </TodosPanel>

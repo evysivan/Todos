@@ -3,6 +3,7 @@
   height: 100%;
   width: 40%;
   background: $bgColor;
+  overflow: hidden;
 
   .left-panel-header {
     @include flexBox(row, flex-start);
@@ -19,6 +20,13 @@
   .lists-list {
     width: 100%;
     height: 85%;
+    overflow: auto;
     padding: 5px;
+
+    .lists-list-link {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
   }
 }
