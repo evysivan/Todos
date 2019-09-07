@@ -40,11 +40,10 @@ const listsReducer = handleActions(
       const index = state.lists.findIndex(list => list.id === idDelete);
 
       if (state.current === idDelete) {
-        console.log(state.lists[0].id === idDelete);
         current =
           state.lists[0].id === idDelete
             ? state.lists[1].id
-            : state.lists[index - 1];
+            : state.lists[index - 1].id;
       }
       return {
         ...state,
