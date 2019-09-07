@@ -23,9 +23,13 @@
     overflow: auto;
     padding: 5px;
 
+    .list.selected {
+      background-color: $contourColor;
+    }
     .lists-list-link {
       width: 100%;
       display: flex;
+      outline: none;
       justify-content: flex-start;
     }
   }

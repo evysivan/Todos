@@ -20,14 +20,13 @@ class TodoLists extends Component {
     this.state = {};
   }
   handleTodoTitleCheck = title => {
-    console.log(title);
-    console.log(this.props.lists);
     return !_.some(this.props.lists, { title });
   };
 
   render() {
     const {
       lists,
+      current,
       setCurrentTab,
       editListName,
       removeList,
@@ -51,6 +50,7 @@ class TodoLists extends Component {
               }
               onRemove={id => removeList(id)}
               list={list}
+              current={current}
             />
           ))}
 
@@ -66,8 +66,9 @@ class TodoLists extends Component {
 
 function mapStateToProps(state) {
   const lists = state.todos.lists;
+  const current = state.todos.current;
 
-  return { lists };
+  return { lists, current };
 }
 
 TodoLists.propsType = {

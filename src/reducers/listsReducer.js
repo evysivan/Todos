@@ -1,13 +1,7 @@
 import { combineActions, handleActions } from "redux-actions";
-import { set } from "lodash/fp";
 import todoReducer from "./todoReducers";
 import current from "./currentTab";
-import {
-  addTodoAction,
-  ToggleTodo,
-  RemoveTodo,
-  EditTodo
-} from "../actions/TodoActions";
+
 let listId = 0;
 
 const initialState = {
@@ -15,11 +9,10 @@ const initialState = {
   lists: [
     {
       id: 0,
-      title: "New List-0",
+      title: "New List",
       editable: false,
       todoList: []
-    },
-    { id: 1, title: "New List-1", editable: false, todoList: [] }
+    }
   ]
 };
 

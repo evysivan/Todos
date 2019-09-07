@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "@blueprintjs/core";
 import styled from "styled-components";
+import cx from "classnames";
 
 const LinkWrapper = styled.div`
   display: flex;
@@ -43,10 +44,12 @@ class TodoListLink extends Component {
   };
 
   render() {
-    const { list, handleClick, onRemove, listsLength } = this.props;
+    const { list, current, handleClick, onRemove, listsLength } = this.props;
 
     return (
-      <LinkWrapper>
+      <LinkWrapper
+        className={cx("list", list.id === current ? "selected" : "")}
+      >
         <Button
           id={`list-${list.id}`}
           minimal
