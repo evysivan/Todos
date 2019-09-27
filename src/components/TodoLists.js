@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import TodoListLink from "./TodoListLink";
 import NewTodoList from "./NewTodoList";
 import { getCurrentList } from "../selectors";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { CSSTransitionGroup } from "react-transition-group";
+import axios from "axios";
 
 import * as _ from "lodash";
 import {
@@ -19,6 +20,7 @@ class TodoLists extends Component {
     super(props);
     this.state = {};
   }
+
   handleTodoTitleCheck = title => {
     return !_.some(this.props.lists, { title });
   };
@@ -34,7 +36,7 @@ class TodoLists extends Component {
     } = this.props;
     return (
       <div className="lists-list">
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           style={{ position: "relative" }}
           transitionName="todoeffect"
           transitionEnterTimeout={200}
@@ -58,7 +60,7 @@ class TodoLists extends Component {
             onAdd={title => addList(title)}
             checkTitle={this.handleTodoTitleCheck}
           />
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       </div>
     );
   }

@@ -56,7 +56,12 @@ const listsReducer = handleActions(
       listId++;
       return {
         ...state,
-        lists: state.lists.concat({ id: listId, title, editable: false })
+        lists: state.lists.concat({
+          id: listId,
+          title,
+          editable: false,
+          todoList: []
+        })
       };
     },
     [combineActions("REMOVE_TODO", "ADD_TODO", "TOGGLE_TODO", "EDIT_TODO")]: (
