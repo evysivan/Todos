@@ -1,24 +1,19 @@
 import { combineActions, handleActions } from "redux-actions";
 import todoReducer from "./todoReducers";
+import * as AT from "../action-types";
 import current from "./currentTab";
 
 let listId = 0;
 
 const initialState = {
   current: 0,
-  lists: [
-    {
-      id: 0,
-      title: "New List",
-      editable: false,
-      todoList: []
-    }
-  ]
+  isLoading: false,
+  lists: []
 };
 
 const listsReducer = handleActions(
   {
-    ["EDIT_LIST_NAME"]: (state, action) => {
+    EDIT_LIST_NAME: (state, action) => {
       const { id: idEdit, editable, newValues } = action.payload;
 
       let i = state.lists.findIndex(x => x.id === idEdit);
@@ -32,8 +27,9 @@ const listsReducer = handleActions(
       return { ...state, lists: newList };
     },
 
-    ["REMOVE_LIST"]: (state, action) => {
-      const { id: idDelete } = action.payload;
+    [AT.REMOVE_LIST.SUCCESS]: (state, action) => {
+      // console.log(action.payload);
+      const { id: idDelete } = action.payload.data;
       let current = state.current;
 
       const newList = state.lists.filter(list => list.id !== idDelete);
@@ -47,23 +43,51 @@ const listsReducer = handleActions(
       }
       return {
         ...state,
+        isLoading: false,
         current,
         lists: newList
       };
     },
-    ["ADD_LIST"]: (state, action) => {
-      const { title } = action.payload;
-      listId++;
+    [AT.ADD_LIST.SUCCESS]: (state, action) => {
+      const { data: list } = action.payload;
+      // console.log(list);
       return {
         ...state,
+        isLoading: false,
         lists: state.lists.concat({
-          id: listId,
-          title,
+          id: list.id,
+          title: list.title,
           editable: false,
           todoList: []
         })
       };
     },
+    [combineActions(
+      AT.FETCH_LISTS.PENDING,
+      AT.ADD_LIST.PENDING,
+      AT.REMOVE_LIST.PENDING
+    )]: (state, action) => {
+      return { ...state, isLoading: true };
+    },
+    [AT.FETCH_LISTS.SUCCESS]: (state, action) => {
+      const { data: lists = [] } = action.payload;
+      const listsToObjects = lists.map(list => {
+        return {
+          id: list.id,
+          title: list.title,
+          editable: false,
+          todoList: list.todoList
+        };
+      });
+
+      return {
+        ...state,
+        current: listsToObjects[0].id,
+        isLoading: false,
+        lists: state.lists.concat(listsToObjects)
+      };
+    },
+    [AT.FETCH_LISTS.FAILURE]: state => state,
     [combineActions("REMOVE_TODO", "ADD_TODO", "TOGGLE_TODO", "EDIT_TODO")]: (
       state,
       action
@@ -74,7 +98,7 @@ const listsReducer = handleActions(
       newLists[index].todoList = todoReducer(newLists[index].todoList, action);
       return { ...state, lists: newLists };
     },
-    ["CHOOSE_TAB"]: (state, action) => ({
+    CHOOSE_TAB: (state, action) => ({
       ...state,
       current: current(state.current, action)
     })

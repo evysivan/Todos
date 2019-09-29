@@ -221,34 +221,26 @@
 
 .todoeffect-enter {
   opacity: 0.01;
-  height: 0px;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
 }
 
 .todoeffect-enter.todoeffect-enter-active {
   opacity: 1;
-  height: 50px;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-  -webkit-transition: 400ms;
-  transition: 400ms;
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
-.todoeffect-leave {
+.todoeffect-exit {
   opacity: 1;
-  height: 50px;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
-.todoeffect-leave.todoeffect-leave-active {
+.todoeffect-exit.todoeffect-exit-active {
   opacity: 0.01;
-  height: 0px;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
-  -webkit-transition: 400ms;
-  transition: 400ms;
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
 }
 
 h1,

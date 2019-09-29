@@ -10,7 +10,7 @@ import Todo from "../components/Todo";
 import { connect } from "react-redux";
 import { getTodoList } from "../selectors";
 import * as _ from "lodash";
-import { CSSTransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 
 const StyledUL = styled.ul`
@@ -55,15 +55,14 @@ class TodoList extends Component {
           checkTitle={this.handleTodoTitleCheck}
         ></AddTodoForm>
         <StyledUL>
-          <CSSTransitionGroup
-            style={{ position: "relative" }}
-            transitionName="todoeffect"
-            transitionEnterTimeout={200}
-            transitionLeaveTimeout={200}
-          >
-            {todoList && todoList.length > 0 ? (
-              todoList.map(todo => {
-                return (
+          {todoList && todoList.length > 0 ? (
+            <TransitionGroup>
+              {todoList.map(todo => (
+                <CSSTransition
+                  key={todo.id}
+                  classNames="todoeffect"
+                  timeout={{ enter: 500, exit: 300 }}
+                >
                   <Todo
                     todo={todo}
                     key={todo.id}
@@ -73,12 +72,12 @@ class TodoList extends Component {
                     }
                     onRemove={id => RemoveTodo(id)}
                   />
-                );
-              })
-            ) : (
-              <StyledP>No tasks yet</StyledP>
-            )}
-          </CSSTransitionGroup>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          ) : (
+            <StyledP>No tasks yet</StyledP>
+          )}
         </StyledUL>
       </TodosPanel>
     );

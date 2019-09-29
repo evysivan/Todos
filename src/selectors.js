@@ -1,7 +1,11 @@
+import { get } from "lodash/fp";
+
 export const getTodoList = (store, visibilityFilter) => {
-  const todoList = store.todos.lists.filter(
+  const list = store.todos.lists.filter(
     list => list.id === store.todos.current
-  )[0].todoList;
+  );
+
+  const todoList = get("[0].todoList", list) || [];
 
   switch (visibilityFilter) {
     case "completed":

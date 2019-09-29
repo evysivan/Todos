@@ -45,11 +45,22 @@ class TodoListLink extends Component {
   };
 
   render() {
-    const { list, current, handleClick, onRemove, listsLength } = this.props;
+    const {
+      list,
+      current,
+      handleClick,
+      onRemove,
+      listsLength,
+      isLoading
+    } = this.props;
 
     return (
       <LinkWrapper
-        className={cx("list", list.id === current ? "selected" : "")}
+        className={cx(
+          "list",
+          list.id === current ? "selected" : "",
+          isLoading ? "bp3-skeleton" : ""
+        )}
       >
         <Button
           id={`list-${list.id}`}

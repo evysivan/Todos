@@ -1,4 +1,5 @@
 import React from "react";
+import { get } from "lodash/fp";
 import { connect } from "react-redux";
 
 const RightPanelTitle = ({ title }) => {
@@ -6,9 +7,11 @@ const RightPanelTitle = ({ title }) => {
 };
 
 function mapStateToProps(state) {
-  const title = state.todos.lists.filter(
+  const list = state.todos.lists.filter(
     list => list.id === state.todos.current
-  )[0].title;
+  );
+
+  const title = get("[0].title", list) || "";
 
   return { title };
 }
