@@ -20,8 +20,8 @@ import {
 import PropTypes from "prop-types";
 
 const StyledSpinner = styled(Spinner)`
-  background-color: rgba(250, 250, 250, 0.4);
-  opacity: 0.4;
+  position: absolute;
+  background-color: rgba(250, 250, 250, 0.8);
   height: 100%;
   width: 100%;
 `;
@@ -65,9 +65,7 @@ class TodoLists extends Component {
                 isLoading={isLoading}
                 listsLength={lists.length}
                 handleClick={() => setCurrentTab(list.id)}
-                onEdit={(id, editable, newValues) =>
-                  editListName(id, editable, newValues)
-                }
+                onEdit={(id, newTitle) => editListName(id, newTitle)}
                 onRemove={id => removeList(id)}
                 list={list}
                 current={current}

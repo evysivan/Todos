@@ -25,13 +25,17 @@ router.get("/", async (req, res) => {
 
 router.patch("/:listId", async (req, res) => {
   try {
-    const updatedList = await List.updateOne(
+    const updatedListDB = await List.findByIdAndUpdate(
       { _id: req.params.listId },
-      { $set: { title: req.body.title } }
-    );
-    res.send(updatedList);
+      { $set: { title: req.body.newTitle } },
+      { useFindAndModify: false }
+    ).lean();
+
+    const updatedList = changeIdPropName(updatedListDB);
+
+    res.json(updatedList);
   } catch (err) {
-    res.send(err);
+    res.json(err);
   }
 });
 

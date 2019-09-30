@@ -24,14 +24,19 @@ export const setCurrentTab = id => ({
 //   }
 // });
 
-export const editListName = (id, editable, newValues) => ({
-  type: "EDIT_LIST_NAME",
-  payload: {
-    id,
-    editable,
-    newValues
-  }
-});
+// export const editListName = (id, editable, newValues) => ({
+//   type: "EDIT_LIST_NAME",
+//   payload: {
+//     id,
+//     editable,
+//     newValues
+//   }
+// });
+
+export const editListName = (id, newTitle) =>
+  apiCall(AT.EDIT_LIST_NAME, `http://localhost:5050/lists/${id}`, "PATCH", {
+    newTitle
+  });
 
 export const removeList = id =>
   apiCall(AT.REMOVE_LIST, `http://localhost:5050/lists/${id}`, "DELETE");

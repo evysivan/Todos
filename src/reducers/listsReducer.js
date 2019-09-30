@@ -13,18 +13,18 @@ const initialState = {
 
 const listsReducer = handleActions(
   {
-    EDIT_LIST_NAME: (state, action) => {
-      const { id: idEdit, editable, newValues } = action.payload;
-
+    [AT.EDIT_LIST_NAME.SUCCESS]: (state, action) => {
+      const { id: idEdit, title: newTitle } = action.payload.data;
       let i = state.lists.findIndex(x => x.id === idEdit);
       let newList = [...state.lists];
-      if (editable) {
-        newList[i].title = newValues.title;
-        newList[i].description = newValues.description;
-      }
+
       newList[i].editable = !newList[i].editable;
 
-      return { ...state, lists: newList };
+      if (newList[i].editable) {
+        newList[i].title = newTitle;
+      }
+
+      return { ...state, isLoading: false, lists: newList };
     },
 
     [AT.REMOVE_LIST.SUCCESS]: (state, action) => {
@@ -65,6 +65,7 @@ const listsReducer = handleActions(
     [combineActions(
       AT.FETCH_LISTS.PENDING,
       AT.ADD_LIST.PENDING,
+      AT.EDIT_LIST_NAME.PENDING,
       AT.REMOVE_LIST.PENDING
     )]: (state, action) => {
       return { ...state, isLoading: true };

@@ -30,18 +30,17 @@ class TodoListLink extends Component {
     this.state = { listTitle: "" };
   }
 
-  handleEdit = (event, id, editable) => {
+  handleEdit = (event, id) => {
     const { onEdit } = this.props;
     const DOMtitle = document.querySelector(`#list-${id} h1`);
 
-    const newValues = {
-      title: DOMtitle.innerHTML
-    };
+    const newTitle = DOMtitle.innerHTML;
+
     setTimeout(function() {
       DOMtitle.focus();
     }, 0);
 
-    onEdit(id, editable, newValues);
+    onEdit(id, newTitle);
   };
 
   render() {
@@ -85,7 +84,7 @@ class TodoListLink extends Component {
         <Button
           minimal
           icon={list.editable || "edit"}
-          onClick={event => this.handleEdit(event, list.id, list.editable)}
+          onClick={event => this.handleEdit(event, list.id)}
         >
           {list.editable ? "Done editting" : ""}
         </Button>
