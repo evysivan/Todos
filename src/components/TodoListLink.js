@@ -27,20 +27,26 @@ const Title = styled.h1`
 class TodoListLink extends Component {
   constructor(props) {
     super(props);
-    this.state = { listTitle: "" };
+    this.state = { listTitle: "", editable: false };
   }
+
+  toggleEditable = () => {
+    this.setState({ editable: !this.state.editable });
+  };
 
   handleEdit = (event, id) => {
     const { onEdit } = this.props;
     const DOMtitle = document.querySelector(`#list-${id} h1`);
 
-    const newTitle = DOMtitle.innerHTML;
+    if (this.state.editable) {
+      const newTitle = DOMtitle.innerHTML;
+      onEdit(id, newTitle);
+    } else
+      setTimeout(function() {
+        DOMtitle.focus();
+      }, 0);
 
-    setTimeout(function() {
-      DOMtitle.focus();
-    }, 0);
-
-    onEdit(id, newTitle);
+    this.toggleEditable();
   };
 
   render() {
@@ -69,7 +75,7 @@ class TodoListLink extends Component {
         >
           <Title
             ref={title => (this.listTitle = title)}
-            contentEditable={list.editable}
+            contentEditable={this.state.editable}
           >
             {list.title}
           </Title>
@@ -83,10 +89,10 @@ class TodoListLink extends Component {
         />
         <Button
           minimal
-          icon={list.editable || "edit"}
+          icon={this.state.editable || "edit"}
           onClick={event => this.handleEdit(event, list.id)}
         >
-          {list.editable ? "Done editting" : ""}
+          {this.state.editable ? "Done editting" : ""}
         </Button>
       </LinkWrapper>
     );

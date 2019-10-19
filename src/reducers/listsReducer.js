@@ -66,7 +66,11 @@ const listsReducer = handleActions(
       AT.FETCH_LISTS.PENDING,
       AT.ADD_LIST.PENDING,
       AT.EDIT_LIST_NAME.PENDING,
-      AT.REMOVE_LIST.PENDING
+      AT.REMOVE_LIST.PENDING,
+      AT.REMOVE_TODO.PENDING,
+      AT.ADD_TODO.PENDING,
+      AT.TOGGLE_TODO.PENDING,
+      AT.EDIT_TODO.PENDING
     )]: (state, action) => {
       return { ...state, isLoading: true };
     },
@@ -80,7 +84,6 @@ const listsReducer = handleActions(
           todoList: list.todoList
         };
       });
-
       return {
         ...state,
         current: listsToObjects[0].id,
@@ -89,15 +92,17 @@ const listsReducer = handleActions(
       };
     },
     [AT.FETCH_LISTS.FAILURE]: state => state,
-    [combineActions("REMOVE_TODO", "ADD_TODO", "TOGGLE_TODO", "EDIT_TODO")]: (
-      state,
-      action
-    ) => {
+    [combineActions(
+      AT.REMOVE_TODO.SUCCESS,
+      AT.ADD_TODO.SUCCESS,
+      AT.TOGGLE_TODO.SUCCESS,
+      AT.EDIT_TODO.SUCCESS
+    )]: (state, action) => {
       const newLists = [...state.lists];
       const index = state.lists.findIndex(list => list.id === state.current);
 
       newLists[index].todoList = todoReducer(newLists[index].todoList, action);
-      return { ...state, lists: newLists };
+      return { ...state, isLoading: false, lists: newLists };
     },
     CHOOSE_TAB: (state, action) => ({
       ...state,

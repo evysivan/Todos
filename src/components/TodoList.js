@@ -10,6 +10,7 @@ import Todo from "../components/Todo";
 import { connect } from "react-redux";
 import { getTodoList } from "../selectors";
 import * as _ from "lodash";
+import { get } from "lodash/fp";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 
@@ -45,13 +46,14 @@ class TodoList extends Component {
       ToggleTodo,
       RemoveTodo,
       addTodoAction,
+      currentList,
       EditTodo
     } = this.props;
 
     return (
       <TodosPanel>
         <AddTodoForm
-          addTodo={addTodoAction}
+          addTodo={todo => addTodoAction({ ...todo, listId: currentList })}
           checkTitle={this.handleTodoTitleCheck}
         ></AddTodoForm>
         <StyledUL>
@@ -67,9 +69,7 @@ class TodoList extends Component {
                     todo={todo}
                     key={todo.id}
                     onCompleted={id => ToggleTodo(id)}
-                    onEdit={(id, editable, newValues) =>
-                      EditTodo(id, editable, newValues)
-                    }
+                    onEdit={(id, newValues) => EditTodo(id, newValues)}
                     onRemove={id => RemoveTodo(id)}
                   />
                 </CSSTransition>
@@ -86,7 +86,8 @@ class TodoList extends Component {
 
 function mapStateToProps(state) {
   const visibilityList = getTodoList(state, state.filter);
-  return { todoList: visibilityList };
+  const currentList = get("todos.current", state);
+  return { todoList: visibilityList, currentList };
 }
 
 export default connect(

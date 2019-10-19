@@ -52,7 +52,6 @@ class TodoLists extends Component {
     } = this.props;
     return (
       <div className="lists-list">
-        {isLoading ? <StyledSpinner /> : null}
         <TransitionGroup>
           {lists.map(list => (
             <CSSTransition

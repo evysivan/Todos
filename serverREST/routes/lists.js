@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     const todos = changeIdPropNameCollection(todosDB);
 
     let listsWithTodos = lists.map(list => {
-      let todoList = todos.filter(todo => todo.listId == list.id);
+      let todoList = todos.filter(todo => todo.listId == list.id).reverse();
       return Object.assign(list, { todoList, id: list.id });
     });
     res.json(listsWithTodos);

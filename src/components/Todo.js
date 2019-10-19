@@ -31,24 +31,32 @@ class Todo extends Component {
 
     this.state = {
       title: "",
-      description: ""
+      description: "",
+      editable: false
     };
   }
 
-  handleEdit = (id, editable) => {
+  toggleEditable = () => {
+    this.setState({ editable: !this.state.editable });
+  };
+
+  handleEdit = id => {
     const { onEdit } = this.props;
     const DOMtitle = document.querySelector(`#todo-${id} h1`);
     const DOMdescription = document.querySelector(`#todo-${id} p`);
 
-    const newValues = {
-      title: DOMtitle.innerHTML,
-      description: DOMdescription.innerHTML
-    };
-    setTimeout(function() {
-      DOMtitle.focus();
-    }, 0);
+    if (this.state.editable) {
+      const newValues = {
+        title: DOMtitle.innerHTML,
+        description: DOMdescription.innerHTML
+      };
+      onEdit(id, newValues);
+    } else
+      setTimeout(function() {
+        DOMtitle.focus();
+      }, 0);
 
-    onEdit(id, editable, newValues);
+    this.toggleEditable();
   };
 
   render() {
@@ -65,21 +73,21 @@ class Todo extends Component {
         />
         <Title
           ref={title => (this.TodoTitle = title)}
-          contentEditable={todo.editable}
+          contentEditable={this.state.editable}
         >
           {todo.title}
         </Title>
-        <Description as="p" contentEditable={todo.editable}>
+        <Description as="p" contentEditable={this.state.editable}>
           {todo.description}
         </Description>
         <div style={{ flex: 1 }}></div>
         <Button minimal icon={"delete"} onClick={() => onRemove(todo.id)} />
         <Button
           minimal
-          icon={todo.editable || "edit"}
-          onClick={() => this.handleEdit(todo.id, todo.editable)}
+          icon={this.state.editable || "edit"}
+          onClick={() => this.handleEdit(todo.id)}
         >
-          {todo.editable ? "Done editting" : ""}
+          {this.state.editable ? "Done editting" : ""}
         </Button>
       </TodoWrapper>
     );
