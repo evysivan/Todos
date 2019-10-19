@@ -19,13 +19,6 @@ import {
 } from "../actions/listActions";
 import PropTypes from "prop-types";
 
-const StyledSpinner = styled(Spinner)`
-  position: absolute;
-  background-color: rgba(250, 250, 250, 0.8);
-  height: 100%;
-  width: 100%;
-`;
-
 class TodoLists extends Component {
   constructor(props) {
     super(props);
