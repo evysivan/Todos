@@ -1,0 +1,331 @@
+.login-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: absolute;
+  height: 60vh;
+  width: 50vw;
+  padding: 5%;
+  background-color: #e2e2e2;
+}
+
+.login-container form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+}
+
+.login-container .register-title {
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+
+.left-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 40%;
+  background: #f1f0f0;
+  overflow: hidden;
+}
+
+.left-panel .left-panel-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 15%;
+  padding: 5px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.left-panel .left-panel-header h1 {
+  margin-left: 15px;
+}
+
+.left-panel .lists-list {
+  width: 100%;
+  height: 85%;
+  position: relative;
+  overflow: auto;
+  padding: 5px;
+}
+
+.left-panel .lists-list .list.selected {
+  background-color: #c4c4c4;
+}
+
+.left-panel .lists-list .lists-list-link {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  outline: none;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.right-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 60%;
+  height: 100%;
+  background: #f1f0f0;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.right-panel .right-panel-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 100%;
+  margin-bottom: 5px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(236, 236, 236, 0.5)), to(rgba(233, 233, 233, 0.4))), url("right-panel-headr-bg.png");
+  background: linear-gradient(rgba(236, 236, 236, 0.5), rgba(233, 233, 233, 0.4)), url("right-panel-headr-bg.png");
+  background-position: top;
+  background-size: cover;
+  color: white;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.right-panel .right-panel-header h1 {
+  text-shadow: -2px 3px 7px rgba(4, 30, 23, 0.66);
+}
+
+.right-panel button[type="submit"] {
+  color: #768794;
+  border: 1px solid #c4c4c4;
+}
+
+.right-panel .todo-input {
+  width: 40%;
+}
+
+.right-panel .todo-input > .bp3-input {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 0;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.right-panel .todo-input.bp3-input-group:last-child {
+  margin-left: 10px;
+}
+
+.right-panel .bp3-button {
+  color: white;
+}
+
+.right-panel .bp3-button:focus {
+  outline: none;
+}
+
+.right-panel .bp3-button.filter:hover {
+  color: #c4c4c4;
+  background-color: transparent;
+  text-shadow: -1px 1px 3px #646464;
+}
+
+.right-panel .bp3-button.active {
+  color: #c4c4c4;
+  text-shadow: -1px 1px 3px #646464;
+}
+
+.right-panel .todo {
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: transparent;
+  color: #646464;
+  padding: 5px;
+}
+
+.right-panel .todo .bp3-button-text {
+  color: #646464;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.right-panel .todo h1,
+.right-panel .todo p {
+  line-height: 1;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.right-panel .todo h1:focus,
+.right-panel .todo p:focus {
+  outline: none;
+}
+
+.right-panel .todo h1 h1,
+.right-panel .todo p h1 {
+  line-height: 1;
+}
+
+.right-panel .todo .bp3-button {
+  color: white;
+}
+
+.right-panel .todo .bp3-button:focus {
+  outline: none;
+}
+
+.right-panel .todo .bp3-button:hover {
+  color: #c4c4c4;
+}
+
+.right-panel .todo .bp3-button.active {
+  color: #c4c4c4;
+  text-shadow: -1px 1px 3px #646464;
+}
+
+.right-panel .todo.completed {
+  background-color: #e2e2e2;
+}
+
+.right-panel .todo.completed h1,
+.right-panel .todo.completed p {
+  text-decoration: line-through;
+}
+
+.todoeffect-enter {
+  opacity: 0.01;
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+.todoeffect-enter.todoeffect-enter-active {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.todoeffect-exit {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.todoeffect-exit.todoeffect-exit-active {
+  opacity: 0.01;
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+#root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-image: -webkit-gradient(linear, left bottom, right top, from(#051937), color-stop(#0f3f53), color-stop(#3f6667), color-stop(#778b81), to(#aeb1a7));
+  background-image: linear-gradient(to right top, #051937, #0f3f53, #3f6667, #778b81, #aeb1a7);
+  height: 100vh;
+  width: 100vw;
+}
+
+.App {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #e6e6e6;
+  height: 60vh;
+  width: 50vw;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}
+/*# sourceMappingURL=App.css.map */

@@ -1,0 +1,18 @@
+@mixin backgroundImg($url) {
+  background: linear-gradient(
+      rgba(256, 256, 256, 0.85),
+      rgba(256, 256, 256, 0.75)
+    ),
+    url($url);
+  background-position: center;
+  // background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin flexBox($direction, $justify: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: center;
+}

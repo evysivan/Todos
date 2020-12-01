@@ -4,10 +4,10 @@ import TodoList from "./TodoList";
 
 const RightPanel = () => {
   return (
-    <React.Fragment>
+    <div className="right-panel">
       <RightPanelHeader></RightPanelHeader>
       <TodoList></TodoList>
-    </React.Fragment>
+    </div>
   );
 };
 

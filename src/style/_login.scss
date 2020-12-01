@@ -1,0 +1,21 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
+  height: 60vh;
+  width: 50vw;
+  padding: 5%;
+  background-color: $completedColor;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .register-title {
+    margin-bottom: 10px;
+    font-size: 2em;
+  }
+}

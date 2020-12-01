@@ -1,5 +1,11 @@
+import { get } from "lodash/fp";
+
 export const getTodoList = (store, visibilityFilter) => {
-  const todoList = store.todoList;
+  const list = store.todos.lists.filter(
+    list => list.id === store.todos.current
+  );
+
+  const todoList = get("[0].todoList", list) || [];
 
   switch (visibilityFilter) {
     case "completed":
@@ -10,4 +16,8 @@ export const getTodoList = (store, visibilityFilter) => {
     default:
       return todoList;
   }
+};
+
+export const getCurrentList = store => {
+  return store.lists.filter(list => list.id === store.current)[0];
 };

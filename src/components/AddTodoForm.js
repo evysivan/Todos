@@ -1,6 +1,16 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
+import { InputGroup, Tag, Button } from "@blueprintjs/core";
+import cx from "classnames";
+import styled from "styled-components";
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: rgb(118, 135, 148);
+`;
 
 const initialValues = {
   title: "",
@@ -47,57 +57,70 @@ const AddTodoForm = props => {
       }}
     >
       {({ errors, touched, isSubmitting, isValid }) => (
-        <Form>
-          <Field name="title" placeholder="Enter Title" />
-          {errors.title && touched.title ? <span>{errors.title}</span> : null}
+        <StyledForm>
+          <Field name="title">
+            {({ field, form }) => (
+              <InputGroup
+                className="todo-input"
+                {...field}
+                type="text"
+                placeholder="Enter Title"
+                rightElement={
+                  <Tag
+                    className={cx(
+                      `bp3-minimal`,
+                      `bp3-intent-${
+                        errors.title && touched.title ? "danger" : "success"
+                      }`
+                    )}
+                    icon={errors.title && touched.title ? "cross" : "circle"}
+                  >
+                    {errors.title && touched.title ? errors.title : null}
+                  </Tag>
+                }
+              />
+            )}
+          </Field>
 
-          <Field name="description" placeholder="Enter Description" />
-          {errors.description && touched.description ? (
-            <span>{errors.description}</span>
-          ) : null}
-
-          <button type="submit" disabled={!isValid || isSubmitting}>
+          <Field name="description">
+            {({ field, form }) => (
+              <InputGroup
+                className="todo-input"
+                {...field}
+                type="text"
+                placeholder="Enter Description"
+                rightElement={
+                  <Tag
+                    className={cx(
+                      `bp3-minimal`,
+                      `bp3-intent-${
+                        errors.description && touched.description
+                          ? "danger"
+                          : "success"
+                      }`
+                    )}
+                    icon={
+                      errors.description && touched.description
+                        ? "cross"
+                        : "circle"
+                    }
+                  >
+                    {errors.description && touched.description
+                      ? errors.description
+                      : null}
+                  </Tag>
+                }
+              />
+            )}
+          </Field>
+          <div style={{ flex: 2 }} />
+          <Button minimal type="submit" disabled={!isValid || isSubmitting}>
             Add
-          </button>
-        </Form>
+          </Button>
+        </StyledForm>
       )}
     </Formik>
   );
 };
 
 export default AddTodoForm;
-
-// class AddTodoForm extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { input: "" };
-//   }
-
-//   handleClick = () => {
-//     let { addTodo } = this.props;
-//     let input = this.state.input;
-//     addTodo(input);
-//     this.setState({ input: "" });
-//   };
-
-//   handleChange = e => {
-//     this.setState({ input: e.target.value });
-//   };
-
-//   render() {
-//     const { input } = this.state;
-
-//     return (
-//       <Formik>
-//         <input
-//           onChange={this.handleChange}
-//           placeholder={"Yo"}
-//           value={input}
-//         ></input>
-//         <button onClick={this.handleClick}>Submit</button>
-//       </Formik>
-//     );
-//   }
-// }
-
-// export default AddTodoForm;
