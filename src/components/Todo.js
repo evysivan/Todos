@@ -10,15 +10,15 @@ const TodoWrapper = styled.div`
   align-items: center;
   margin-bottom: 5px;
   border-radius: 10px;
-  border 1px solid lightgray;
+  border: 1px solid lightgray;
   max-height: 60px;
 `;
 
 const Title = styled.h1`
-  background: ${props =>
+  background: ${(props) =>
     props.contentEditable ? "rgb(226, 226, 226)" : "transparent"};
   border-bottom: 2px solid
-    ${props => (props.contentEditable ? "rgb(83, 83, 83)" : "transparent")};
+    ${(props) => (props.contentEditable ? "rgb(83, 83, 83)" : "transparent")};
 `;
 const Description = styled(Title)`
   margin: 0;
@@ -32,7 +32,7 @@ class Todo extends Component {
     this.state = {
       title: "",
       description: "",
-      editable: false
+      editable: false,
     };
   }
 
@@ -40,7 +40,7 @@ class Todo extends Component {
     this.setState({ editable: !this.state.editable });
   };
 
-  handleEdit = id => {
+  handleEdit = (id) => {
     const { onEdit } = this.props;
     const DOMtitle = document.querySelector(`#todo-${id} h1`);
     const DOMdescription = document.querySelector(`#todo-${id} p`);
@@ -48,11 +48,11 @@ class Todo extends Component {
     if (this.state.editable) {
       const newValues = {
         title: DOMtitle.innerHTML,
-        description: DOMdescription.innerHTML
+        description: DOMdescription.innerHTML,
       };
       onEdit(id, newValues);
     } else
-      setTimeout(function() {
+      setTimeout(function () {
         DOMtitle.focus();
       }, 0);
 
@@ -72,7 +72,7 @@ class Todo extends Component {
           onClick={() => onCompleted(todo.id)}
         />
         <Title
-          ref={title => (this.TodoTitle = title)}
+          ref={(title) => (this.TodoTitle = title)}
           contentEditable={this.state.editable}
         >
           {todo.title}
