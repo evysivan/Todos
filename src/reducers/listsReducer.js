@@ -8,14 +8,14 @@ let listId = 0;
 const initialState = {
   current: 0,
   isLoading: false,
-  lists: []
+  lists: [],
 };
 
 const listsReducer = handleActions(
   {
     [AT.EDIT_LIST_NAME.SUCCESS]: (state, action) => {
       const { id: idEdit, title: newTitle } = action.payload.data;
-      let i = state.lists.findIndex(x => x.id === idEdit);
+      let i = state.lists.findIndex((x) => x.id === idEdit);
       let newList = [...state.lists];
 
       newList[i].editable = !newList[i].editable;
@@ -32,8 +32,8 @@ const listsReducer = handleActions(
       const { id: idDelete } = action.payload.data;
       let current = state.current;
 
-      const newList = state.lists.filter(list => list.id !== idDelete);
-      const index = state.lists.findIndex(list => list.id === idDelete);
+      const newList = state.lists.filter((list) => list.id !== idDelete);
+      const index = state.lists.findIndex((list) => list.id === idDelete);
 
       if (state.current === idDelete) {
         current =
@@ -45,7 +45,7 @@ const listsReducer = handleActions(
         ...state,
         isLoading: false,
         current,
-        lists: newList
+        lists: newList,
       };
     },
     [AT.ADD_LIST.SUCCESS]: (state, action) => {
@@ -58,8 +58,8 @@ const listsReducer = handleActions(
           id: list.id,
           title: list.title,
           editable: false,
-          todoList: []
-        })
+          todoList: [],
+        }),
       };
     },
     [combineActions(
@@ -76,22 +76,23 @@ const listsReducer = handleActions(
     },
     [AT.FETCH_LISTS.SUCCESS]: (state, action) => {
       const { data: lists = [] } = action.payload;
-      const listsToObjects = lists.map(list => {
+      const listsToObjects = lists.map((list) => {
         return {
           id: list.id,
           title: list.title,
           editable: false,
-          todoList: list.todoList
+          todoList: list.todoList,
         };
       });
       return {
         ...state,
-        current: listsToObjects[0].id,
+        current: listsToObjects.length == 0 ? "" : listsToObjects[0].id,
         isLoading: false,
-        lists: state.lists.concat(listsToObjects)
+        lists:
+          listsToObjects.length == 0 ? [] : state.lists.concat(listsToObjects),
       };
     },
-    [AT.FETCH_LISTS.FAILURE]: state => state,
+    [AT.FETCH_LISTS.FAILURE]: (state) => state,
     [combineActions(
       AT.REMOVE_TODO.SUCCESS,
       AT.ADD_TODO.SUCCESS,
@@ -99,15 +100,15 @@ const listsReducer = handleActions(
       AT.EDIT_TODO.SUCCESS
     )]: (state, action) => {
       const newLists = [...state.lists];
-      const index = state.lists.findIndex(list => list.id === state.current);
+      const index = state.lists.findIndex((list) => list.id === state.current);
 
       newLists[index].todoList = todoReducer(newLists[index].todoList, action);
       return { ...state, isLoading: false, lists: newLists };
     },
     CHOOSE_TAB: (state, action) => ({
       ...state,
-      current: current(state.current, action)
-    })
+      current: current(state.current, action),
+    }),
   },
   initialState
 );

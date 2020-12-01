@@ -15,7 +15,7 @@ import {
   setCurrentTab,
   editListName,
   removeList,
-  addList
+  addList,
 } from "../actions/listActions";
 import PropTypes from "prop-types";
 
@@ -29,7 +29,7 @@ class TodoLists extends Component {
     fetchLists();
   }
 
-  handleTodoTitleCheck = title => {
+  handleTodoTitleCheck = (title) => {
     return !_.some(this.props.lists, { title });
   };
 
@@ -41,12 +41,13 @@ class TodoLists extends Component {
       editListName,
       removeList,
       addList,
-      isLoading
+      isLoading,
+      token,
     } = this.props;
     return (
       <div className="lists-list">
         <TransitionGroup>
-          {lists.map(list => (
+          {lists.map((list) => (
             <CSSTransition
               key={list.id}
               classNames="todoeffect"
@@ -58,7 +59,7 @@ class TodoLists extends Component {
                 listsLength={lists.length}
                 handleClick={() => setCurrentTab(list.id)}
                 onEdit={(id, newTitle) => editListName(id, newTitle)}
-                onRemove={id => removeList(id)}
+                onRemove={(id) => removeList(id)}
                 list={list}
                 current={current}
               />
@@ -66,7 +67,7 @@ class TodoLists extends Component {
           ))}
 
           <NewTodoList
-            onAdd={title => addList(title)}
+            onAdd={(title) => addList(title, token)}
             checkTitle={this.handleTodoTitleCheck}
           />
         </TransitionGroup>
@@ -79,16 +80,20 @@ function mapStateToProps(state) {
   const lists = state.todos.lists;
   const current = state.todos.current;
   const isLoading = state.todos.isLoading;
+  const token = state.login.token;
 
-  return { lists, current, isLoading };
+  return { lists, current, isLoading, token };
 }
 
 TodoLists.propsType = {
   lists: PropTypes.array,
-  setCurrentTab: PropTypes.func
+  setCurrentTab: PropTypes.func,
 };
 
-export default connect(
-  mapStateToProps,
-  { setCurrentTab, editListName, removeList, addList, fetchLists }
-)(TodoLists);
+export default connect(mapStateToProps, {
+  setCurrentTab,
+  editListName,
+  removeList,
+  addList,
+  fetchLists,
+})(TodoLists);

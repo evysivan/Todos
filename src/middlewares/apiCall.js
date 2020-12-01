@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export default function apiCall(actionType, url, method, data, params) {
-  return dispatch => {
+export default function apiCall(actionType, url, method, data, params, token) {
+  return (dispatch) => {
     dispatch({ type: actionType.PENDING });
 
     let options = {
@@ -9,18 +9,23 @@ export default function apiCall(actionType, url, method, data, params) {
       url,
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
+        "auth-token": token,
       },
       data,
-      params
+      params,
     };
 
-    axios(options)
-      .then(res => {
+    return axios(options)
+      .then((res) => {
+        console.log(res);
         if (res.status === 200 && res.statusText === "OK") {
-          dispatch({ type: actionType.SUCCESS, payload: { data: res.data } });
+          dispatch({
+            type: actionType.SUCCESS,
+            payload: { data: res.data },
+          });
         }
       })
-      .catch(error => dispatch({ type: actionType.FAILURE, error }));
+      .catch((error) => dispatch({ type: actionType.FAILURE, error }));
   };
 }

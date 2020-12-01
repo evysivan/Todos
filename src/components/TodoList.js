@@ -3,7 +3,7 @@ import {
   addTodoAction,
   ToggleTodo,
   RemoveTodo,
-  EditTodo
+  EditTodo,
 } from "../actions/TodoActions";
 import AddTodoForm from "../components/AddTodoForm";
 import Todo from "../components/Todo";
@@ -27,6 +27,7 @@ const TodosPanel = styled.div`
   height: 100%;
   width: 100%;
   padding: 10px;
+  overflow: auto;
 `;
 
 const StyledP = styled.p`
@@ -35,11 +36,11 @@ const StyledP = styled.p`
 `;
 
 class TodoList extends Component {
-  handleToggleTodo = id => {
+  handleToggleTodo = (id) => {
     this.props.ToggleTodo(id);
   };
 
-  handleTodoTitleCheck = title => !_.some(this.props.todoList, { title });
+  handleTodoTitleCheck = (title) => !_.some(this.props.todoList, { title });
   render() {
     const {
       todoList,
@@ -47,19 +48,19 @@ class TodoList extends Component {
       RemoveTodo,
       addTodoAction,
       currentList,
-      EditTodo
+      EditTodo,
     } = this.props;
 
     return (
       <TodosPanel>
         <AddTodoForm
-          addTodo={todo => addTodoAction({ ...todo, listId: currentList })}
+          addTodo={(todo) => addTodoAction({ ...todo, listId: currentList })}
           checkTitle={this.handleTodoTitleCheck}
         ></AddTodoForm>
         <StyledUL>
           {todoList && todoList.length > 0 ? (
             <TransitionGroup>
-              {todoList.map(todo => (
+              {todoList.map((todo) => (
                 <CSSTransition
                   key={todo.id}
                   classNames="todoeffect"
@@ -68,9 +69,9 @@ class TodoList extends Component {
                   <Todo
                     todo={todo}
                     key={todo.id}
-                    onCompleted={id => ToggleTodo(id)}
+                    onCompleted={(id) => ToggleTodo(id)}
                     onEdit={(id, newValues) => EditTodo(id, newValues)}
-                    onRemove={id => RemoveTodo(id)}
+                    onRemove={(id) => RemoveTodo(id)}
                   />
                 </CSSTransition>
               ))}
@@ -90,7 +91,9 @@ function mapStateToProps(state) {
   return { todoList: visibilityList, currentList };
 }
 
-export default connect(
-  mapStateToProps,
-  { addTodoAction, ToggleTodo, RemoveTodo, EditTodo }
-)(TodoList);
+export default connect(mapStateToProps, {
+  addTodoAction,
+  ToggleTodo,
+  RemoveTodo,
+  EditTodo,
+})(TodoList);

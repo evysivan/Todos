@@ -1,11 +1,15 @@
-const createAsyncActionType = type => ({
+const createAsyncActionType = (type) => ({
   PENDING: `${type}_PENDING`,
   FAILURE: `${type}_FAILURE`,
-  SUCCESS: `${type}_SUCCESS`
+  SUCCESS: `${type}_SUCCESS`,
 });
 
 export const API_REQ = "API_REQ";
 export const GET_USER = "GET_USER";
+
+//<====================Login action types=======================>
+export const SUBMIT_LOGIN = createAsyncActionType("SUBMIT_LOGIN");
+export const REGISTER = createAsyncActionType("REGISTER");
 
 //<====================Lists action types=======================>
 

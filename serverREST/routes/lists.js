@@ -1,7 +1,11 @@
 const express = require("express");
 const List = require("../models/list");
 const Todo = require("../models/todo");
-const { changeIdPropNameCollection, changeIdPropName } = require("../utils");
+const {
+  changeIdPropNameCollection,
+  changeIdPropName,
+  verifyTokenMiddleware
+} = require("../utils");
 
 const router = express.Router();
 
@@ -51,7 +55,7 @@ router.delete("/:listId", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyTokenMiddleware, async (req, res) => {
   const list = new List({
     title: req.body.title
   });

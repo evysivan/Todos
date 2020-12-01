@@ -14,12 +14,12 @@ class LeftPanelHeader extends Component {
     this.state = {};
   }
   render() {
-    const { isLoading } = this.props;
+    const { isLoading, user } = this.props;
 
     return (
       <Container className="left-panel-header">
         <Tag icon="user" />
-        <h1>Hello, Evyatar</h1>
+        <h1>Hello, {user.name}</h1>
         <div style={{ flex: 1 }} />
         {isLoading ? <Spinner size={20} /> : null}
       </Container>
@@ -29,12 +29,9 @@ class LeftPanelHeader extends Component {
 
 function mapStateToProps(state) {
   const isLoading = state.todos.isLoading;
-  // const userName = state.todos.userName;
+  const user = state.login.user;
 
-  return { isLoading };
+  return { isLoading, user };
 }
 
-export default connect(
-  mapStateToProps,
-  null
-)(LeftPanelHeader);
+export default connect(mapStateToProps, null)(LeftPanelHeader);
