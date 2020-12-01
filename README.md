@@ -2,10 +2,10 @@
 
 ## About
 
-This is a standard Todo app, that organizes to-dos inside lists, with authentication process.
+This is a standard Todo app, that organizes todos inside lists, with authentication process.
 
-BE is a REST server created with Express and MongoDB,
-FE is a Create-React-App web app, using Redux as local store, redux-thunk for API calls, <br/>
+BE is a REST server created with Express and MongoDB,</br>
+FE is a Create-React-App web app, using Redux as local store, redux-thunk for API calls,
 SCSS and Styled-Components for styling (For studying purposes).
 
 ## Run
@@ -24,8 +24,9 @@ and run the app with:
 
 ## Gaps
 
-1. Deleting list from DB doesn't selete all it's tasks.
+1. Deleting list from DB doesn't delete all it's todos.
 2. Loading state is not applicable on authentication pages.
+3. Lists are not connected to specific users, all users can see all lists.
 
 ## Refactor
 
